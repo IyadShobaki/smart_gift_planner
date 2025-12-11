@@ -6,38 +6,31 @@ function Main({
   lowPriceRange,
   highPriceRange,
   seacrhTextValue,
+  selectedCategory,
 }) {
-  let filteredItems;
+  let filteredItems = testItems.filter((item) => {
+    return lowPriceRange <= item.price && item.price <= highPriceRange;
+  });
   if (seacrhTextValue.length > 0) {
-    filteredItems = testItems
-      .filter((item) => {
-        return (
-          lowPriceRange <= item.price &&
-          item.price <= highPriceRange &&
-          item.name.toLowerCase().includes(seacrhTextValue)
-        );
-      })
-      .map((item) => {
-        return (
-          <ItemCard key={item._id} item={item} onItemClick={handleItemClick} />
-        );
-      });
-  } else {
-    filteredItems = testItems
-      .filter((item) => {
-        return lowPriceRange <= item.price && item.price <= highPriceRange;
-      })
-      .map((item) => {
-        return (
-          <ItemCard key={item._id} item={item} onItemClick={handleItemClick} />
-        );
-      });
+    filteredItems = filteredItems.filter((item) => {
+      return item.name.toLowerCase().includes(seacrhTextValue);
+    });
   }
+  if (selectedCategory !== "All") {
+    filteredItems = filteredItems.filter((item) => {
+      return item.broad_category.includes(selectedCategory);
+    });
+  }
+  const filterResult = filteredItems.map((item) => {
+    return (
+      <ItemCard key={item._id} item={item} onItemClick={handleItemClick} />
+    );
+  });
 
   return (
     <main>
       <section className="items">
-        <ul className="items__list">{filteredItems}</ul>
+        <ul className="items__list">{filterResult}</ul>
       </section>
     </main>
   );

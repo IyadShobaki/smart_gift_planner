@@ -4,6 +4,7 @@ export const testItems = [
     name: "Boot",
     price: 100,
     description: "Winter boot",
+    broad_category: "Shoes",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Boot.png?etag=0953a2ea59f1c6ebc832fabacdc9c70e",
   },
   {
@@ -11,6 +12,7 @@ export const testItems = [
     name: "Cap",
     price: 50,
     description: "Summer cap",
+    broad_category: "Accessories",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
   },
   {
@@ -18,6 +20,7 @@ export const testItems = [
     name: "Coat",
     price: 500,
     description: "Winter Coat",
+    broad_category: "Outerwear",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
   },
   {
@@ -25,6 +28,7 @@ export const testItems = [
     name: "Dress",
     price: 800,
     description: "Summer dress",
+    broad_category: "Dresses",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Dress.png?etag=1f9cd32a311ab139cab43494883720bf",
   },
   {
@@ -32,6 +36,7 @@ export const testItems = [
     name: "Hoodie",
     price: 550,
     description: "Winter Hoodie",
+    broad_category: "Shirts",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
   },
   {
@@ -39,6 +44,7 @@ export const testItems = [
     name: "Jacket",
     price: 750,
     description: "Winter Jacket",
+    broad_category: "Outerwear",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad",
   },
   {
@@ -46,6 +52,7 @@ export const testItems = [
     name: "Jeans",
     price: 450,
     description: "Winter Jeans",
+    broad_category: "Pants",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jeans.png?etag=58345e8bef1ce5f95ac882e71d309e6c",
   },
   {
@@ -53,6 +60,7 @@ export const testItems = [
     name: "Loafers",
     price: 200,
     description: "Winter Loafers",
+    broad_category: "Shoes",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Loafers.png?etag=dc2d6e1ca7b297597406e35c40aef030",
   },
   {
@@ -60,6 +68,7 @@ export const testItems = [
     name: "Sandals",
     price: 150,
     description: "Summer Sandals",
+    broad_category: "Shoes",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sandals.png?etag=9bea85a77c0306586d2b71a33b626d41",
   },
   {
@@ -67,6 +76,7 @@ export const testItems = [
     name: "Scarf",
     price: 230,
     description: "Winter Scarf",
+    broad_category: "Accessories",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Scarf.png?etag=74efbee93810c926b5507e862c6cb76c",
   },
   {
@@ -74,6 +84,7 @@ export const testItems = [
     name: "Shorts",
     price: 450,
     description: "Summer shorts",
+    broad_category: "Shorts",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Shorts.png?etag=d728c496643f610de8d8fea92dd915ba",
   },
   {
@@ -81,6 +92,7 @@ export const testItems = [
     name: "Skirt",
     price: 580,
     description: "Summer skirt",
+    broad_category: "Skirts",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Skirt.png?etag=27a6bea7e1b63218820d615876fa31d1",
   },
   {
@@ -88,6 +100,7 @@ export const testItems = [
     name: "Sneakers",
     price: 870,
     description: "Winter sneakers",
+    broad_category: "Shoes",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png?etag=3efeec41c1c78b8afe26859ca7fa7b6f",
   },
   {
@@ -95,6 +108,7 @@ export const testItems = [
     name: "Sunglasses",
     price: 250,
     description: "Summer Sunglasses",
+    broad_category: "Accessories",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sunglasses.png?etag=a1bced9e331d36cb278c45df51150432",
   },
   {
@@ -102,6 +116,7 @@ export const testItems = [
     name: "Sweatshirt",
     price: 1000,
     description: "Winter sweatshirt",
+    broad_category: "Shirts",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweatshirt.png?etag=008a9674757bea2e0bdb31242e364be0",
   },
   {
@@ -109,6 +124,42 @@ export const testItems = [
     name: "T-Shirt",
     price: 370,
     description: "Summer T-shirt",
+    broad_category: "Shirts",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09",
+  },
+];
+
+export const catregoryOptions = [
+  {
+    label: "All",
+    value: "All",
+  },
+  {
+    label: "Shoes",
+    value: "Shoes",
+  },
+  {
+    label: "Shirts",
+    value: "Shirts",
+  },
+  {
+    label: "Accessories",
+    value: "Accessories",
+  },
+  {
+    label: "Dresses",
+    value: "Dresses",
+  },
+  {
+    label: "Shorts",
+    value: "Shorts",
+  },
+  {
+    label: "Outerwear",
+    value: "Outerwear",
+  },
+  {
+    label: "Pants",
+    value: "Pants",
   },
 ];
