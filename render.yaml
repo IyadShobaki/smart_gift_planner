@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: fastapi-product-api
+    name: smart-gift-planner
     env: python
     region: virginia
     buildCommand: "pip install -r requirements.txt"
