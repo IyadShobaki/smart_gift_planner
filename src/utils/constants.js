@@ -130,10 +130,7 @@ export const testItems = [
 ];
 
 export const catregoryOptions = [
-  {
-    label: "All",
-    value: "All",
-  },
+  { label: "Name", value: "Name" },
   {
     label: "Shoes",
     value: "Shoes",
@@ -162,4 +159,12 @@ export const catregoryOptions = [
     label: "Pants",
     value: "Pants",
   },
+];
+
+export const groupOptions = [
+  { label: "Name", value: "Name" },
+  { label: "Family", value: "Family" },
+  { label: "Friends", value: "Friends" },
+  { label: "Co-workers", value: "Co-workers" },
+  { label: "Other", value: "Other" },
 ];

@@ -6,9 +6,11 @@ import Header from "../Header/Header";
 import ItemModal from "../ItemModal/ItemModal";
 import CartModal from "../CartModal/CartModal";
 import FormModal from "../FormModal/FormModal";
+import { catregoryOptions } from "../../utils/constants";
+import { groupOptions } from "../../utils/constants";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("");
+  const [activeModal, setActiveModal] = useState("gift_survey");
   const [lowPriceRange, setLowPriceRange] = useState(0);
   const [highPriceRange, setHighPriceRange] = useState(1000);
   const [seacrhText, setSeacrhText] = useState("");
@@ -16,11 +18,22 @@ function App() {
   const [selectedItem, setSelectedItem] = useState({});
   const [selectedItemsToAdd, setSelectedItemsToAdd] = useState([]);
 
+  let selectedCategory = "";
+  let selectedGroup = "";
+  let nameInput = "";
+  let priceRange = "5";
+
   function handleItemClick(item) {
     setActiveModal("preview");
     setSelectedItem(item);
   }
   function closeActiveModal() {
+    if (activeModal === "gift_survey") {
+      selectedCategory = "";
+      selectedGroup = "";
+      nameInput = "";
+      priceRange = "5";
+    }
     setActiveModal("");
   }
   function handleLowPriceRange(price) {
@@ -52,6 +65,29 @@ function App() {
     }
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log(nameInput);
+    console.log(selectedCategory);
+    console.log(selectedGroup);
+    console.log(priceRange);
+
+    setActiveModal("");
+  }
+  function setNameInput(e) {
+    nameInput = e.target.value;
+  }
+  function setSelectedGroup(e) {
+    selectedGroup = e.target.value;
+  }
+  function setSelectedCategory(e) {
+    selectedCategory = e.target.value;
+  }
+  function setPriceRange(e) {
+    priceRange = e.target.value;
+    console.log(priceRange);
+  }
   return (
     <div className="page">
       <div className="page__content">
@@ -75,6 +111,59 @@ function App() {
           handleAddToCart={handleAddToCart}
         />
       </div>
+      <FormModal
+        title="Who will you buy a gift for?"
+        buttonText="Save"
+        activeModal={activeModal}
+        onClose={closeActiveModal}
+        onFormSubmit={handleSubmit}
+      >
+        <label htmlFor="name" className="modal__label">
+          Name{" "}
+          <input
+            type="text"
+            className="modal__input"
+            id="name"
+            defaultValue={nameInput}
+            onChange={setNameInput}
+            placeholder="Name"
+          />
+        </label>
+        <label htmlFor="name" className="modal__label">
+          Group{" "}
+          <select defaultValue={selectedGroup} onChange={setSelectedGroup}>
+            {groupOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="name" className="modal__label">
+          Category{" "}
+          <select
+            defaultValue={selectedCategory}
+            onChange={setSelectedCategory}
+          >
+            {catregoryOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <input
+          type="range"
+          id="low-range"
+          min="0"
+          max="10000"
+          step="1"
+          defaultValue={priceRange}
+          onChange={setPriceRange}
+          className="modal__input-range"
+        />
+      </FormModal>
       <ItemModal
         activeModal={activeModal}
         item={selectedItem}
