@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
+import ItemModal from "../ItemModal/ItemModal";
+import FormModal from "../FormModal/FormModal";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -10,8 +12,14 @@ function App() {
   const [highPriceRange, setHighPriceRange] = useState(1000);
   const [seacrhText, setSeacrhText] = useState("");
   const [category, setCategory] = useState("");
-  function handleItemClick() {
+  const [selectedItem, setSelectedItem] = useState({});
+
+  function handleItemClick(item) {
     setActiveModal("preview");
+    setSelectedItem(item);
+  }
+  function closeActiveModal() {
+    setActiveModal("");
   }
   function handleLowPriceRange(price) {
     setLowPriceRange(price);
@@ -25,8 +33,6 @@ function App() {
   function handleCategory(text) {
     setCategory(text);
   }
-  // console.log(`low-price: ${lowPriceRange}`);
-  // console.log(`high-price: ${highPriceRange}`);
   return (
     <div className="page">
       <div className="page__content">
@@ -47,6 +53,11 @@ function App() {
           selectedCategory={category}
         />
       </div>
+      <ItemModal
+        activeModal={activeModal}
+        item={selectedItem}
+        onClose={closeActiveModal}
+      />
     </div>
   );
 }
