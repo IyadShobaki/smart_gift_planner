@@ -10,13 +10,18 @@ app = FastAPI(title="Smart Gift Planner")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # replace with your frontend domain in production
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+@app.get("/")
+def root():
+    return {"status": "ok", "message": "FastAPI running on Render"}
+
 # Load products at startup
-df_products = load_products("products.json")
-df_products = categorize_products(df_products)
+df_products = load_products("../data/final_products.json")
+#df_products = categorize_products(df_products)
 
 @app.get("/products")
 def get_products(

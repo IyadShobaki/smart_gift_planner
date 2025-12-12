@@ -1,7 +1,7 @@
 # data_loader.py
 import pandas as pd
 
-def load_products(json_path="products.json"):
+def load_products(json_path="../data/final_products.json"):
     """
     Specify a .json file to read and return the corresponding pandas dataframe.
     """
