@@ -36,13 +36,12 @@ function Header({
       return acc + parseInt(curr.quantity);
     }, 0);
     return sum;
-    //console.log(sum);
   }
 
   return (
     <div className="header">
-      <span className="header__range-span">${lowPriceRange}</span>
-      <div className="header__slider">
+      {/* <span className="header__range-span">${lowPriceRange}</span> */}
+      {/* <div className="header__slider">
         <input
           type="range"
           id="low-range"
@@ -63,8 +62,8 @@ function Header({
           onChange={onHighPriceChange}
           className="header__input-range header__input-range_type_max"
         />
-      </div>
-      <span className="header__range-span">${highPriceRange}</span>
+      </div> */}
+      {/* <span className="header__range-span">${highPriceRange}</span> */}
       <label htmlFor="search" className="header__label">
         <input
           type="text"
@@ -74,13 +73,13 @@ function Header({
           onChange={onTextChange}
         />
       </label>
-      <select value={selectedCategory} onChange={onSelectedCategory}>
+      {/* <select value={selectedCategory} onChange={onSelectedCategory}>
         {catregoryOptions.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
-      </select>
+      </select> */}
 
       <button onClick={handleViewCart} className="header__cart-btn">
         {getSumQuantity() > 0 ? parseInt(getSumQuantity()) : 0} items
