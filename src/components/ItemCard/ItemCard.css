@@ -53,4 +53,6 @@
 
 .item__like-btn {
   background-image: url(../../assets/images/heart.png);
+  height: 25px;
+  width: 25px;
 }
