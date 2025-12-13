@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import ItemModal from "../ItemModal/ItemModal";
 import CartModal from "../CartModal/CartModal";
 import FormModal from "../FormModal/FormModal";
+import LoginModal from "../LoginModal/LoginModal";
 import { catregoryOptions } from "../../utils/constants";
 import { groupOptions } from "../../utils/constants";
 
@@ -182,6 +183,10 @@ function App() {
         activeModal={activeModal}
         items={selectedItemsToAdd}
         onClose={closeActiveModal}
+      />
+      <LoginModal
+      activeModal={activeModal}
+      onClose={closeActiveModal}
       />
     </div>
   );
