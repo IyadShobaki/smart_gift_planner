@@ -1,44 +1,196 @@
 import "./Main.css";
 import ItemCard from "../ItemCard/ItemCard";
 import { testItems } from "../../utils/constants";
+import RecipientCard from "../RecipientCard/RecipientCard";
+import { useEffect, useRef, useState } from "react";
+
 function Main({
+  recipients,
   handleItemClick,
   lowPriceRange,
   highPriceRange,
   seacrhTextValue,
   selectedCategory,
   handleAddToCart,
+  handleAddRecipient,
 }) {
-  let filteredItems = testItems.filter((item) => {
-    return lowPriceRange <= item.price && item.price <= highPriceRange;
-  });
-  if (seacrhTextValue.length > 0) {
-    filteredItems = filteredItems.filter((item) => {
-      return item.name.toLowerCase().includes(seacrhTextValue);
-    });
-  }
-  if (selectedCategory !== "All") {
-    filteredItems = filteredItems.filter((item) => {
-      return item.broad_category.includes(selectedCategory);
-    });
-  }
-  const filterResult = filteredItems.map((item) => {
-    return (
-      <ItemCard
-        key={item._id}
-        item={item}
-        onItemClick={handleItemClick}
-        onAddItem={handleAddToCart}
-      />
-    );
-  });
+  const [filterRecipientGifts, setFilterRecipientGifts] = useState([]);
+  const [recipientInfo, setRecipientInfo] = useState({});
 
+  const count = useRef(0);
+  useEffect(() => {
+    if (count.current < 3) {
+      count.current++;
+      return;
+    }
+    if (recipients?.length > 0) {
+      handleRecipientClick(recipients[recipients.length - 1]);
+    }
+  }, [recipients]);
+
+  function handleGoBack() {
+    setFilterRecipientGifts([]);
+  }
+  function handleRecipientClick(recipient) {
+    setRecipientInfo(recipient);
+    const filterRecipientG = testItems
+      .filter((item) => {
+        return (
+          item.price <= recipient.priceRange &&
+          item.broad_category.includes(recipient.categories[0])
+        );
+      })
+      .map((item) => {
+        return (
+          <ItemCard
+            key={item._id}
+            item={item}
+            onItemClick={handleItemClick}
+            onAddItem={handleAddToCart}
+          />
+        );
+      });
+    setFilterRecipientGifts(filterRecipientG);
+  }
+
+  // let filteredItems = testItems.filter((item) => {
+  //   return lowPriceRange <= item.price && item.price <= highPriceRange;
+  // });
+  // if (seacrhTextValue.length > 0) {
+  //   filteredItems = filteredItems.filter((item) => {
+  //     return item.name.toLowerCase().includes(seacrhTextValue);
+  //   });
+  // }
+  // if (selectedCategory !== "All") {
+  //   filteredItems = filteredItems.filter((item) => {
+  //     return item.broad_category.includes(selectedCategory);
+  //   });
+  // }
+  // filterResult = filteredItems.map((item) => {
+  //   return (
+  //     <ItemCard
+  //       key={item._id}
+  //       item={item}
+  //       onItemClick={handleItemClick}
+  //       onAddItem={handleAddToCart}
+  //     />
+  //   );
+  // });
+  let coworkers, family, friends, other;
+  if (recipients?.length > 0) {
+    coworkers = recipients
+      .filter((r) => {
+        return r.group === "Co-workers";
+      })
+      .map((recipient) => {
+        return (
+          <RecipientCard
+            key={recipient._id}
+            recipient={recipient}
+            onRecipientClick={handleRecipientClick}
+          />
+        );
+      });
+
+    family = recipients
+      .filter((r) => {
+        return r.group === "Family";
+      })
+      .map((recipient) => {
+        return (
+          <RecipientCard
+            key={recipient._id}
+            recipient={recipient}
+            onRecipientClick={handleRecipientClick}
+          />
+        );
+      });
+    friends = recipients
+      .filter((r) => {
+        return r.group === "Friends";
+      })
+      .map((recipient) => {
+        return (
+          <RecipientCard
+            key={recipient._id}
+            recipient={recipient}
+            onRecipientClick={handleRecipientClick}
+          />
+        );
+      });
+
+    other = recipients
+      .filter((r) => {
+        return r.group === "Other";
+      })
+      .map((recipient) => {
+        return (
+          <RecipientCard
+            key={recipient._id}
+            recipient={recipient}
+            onRecipientClick={handleRecipientClick}
+          />
+        );
+      });
+  }
   return (
-    <main>
-      <section className="items">
-        <h2>Recommended Items</h2>
-        <ul className="items__list">{filterResult}</ul>
+    <main className="main">
+      <section
+        className={`recipients ${
+          filterRecipientGifts?.length === 0 && "recipients_opened"
+        }`}
+      >
+        <h2 className="recipients__title">Family</h2>
+        <p
+          className=""
+          style={{ display: family?.length === 0 ? "block" : "none" }}
+        >
+          No one to buy gifts for yet!
+        </p>
+        <ul className="recipients__list">{family}</ul>
+        <h2 className="recipients__title">Friends</h2>
+        <p
+          className=""
+          style={{ display: friends?.length === 0 ? "block" : "none" }}
+        >
+          No one to buy gifts for yet!
+        </p>
+        <ul className="recipients__list">{friends}</ul>
+        <h2 className="recipients__title">Co-wrokers</h2>
+        <p
+          className=""
+          style={{ display: coworkers?.length === 0 ? "block" : "none" }}
+        >
+          No one to buy gifts for yet!
+        </p>
+        <ul className="recipients__list">{coworkers}</ul>
+        <h2 className="recipients__title">Other</h2>
+        <p
+          className=""
+          style={{ display: other?.length === 0 ? "block" : "none" }}
+        >
+          No one to buy gifts for yet!
+        </p>
+        <ul className="recipients__list">{other}</ul>
+        <button onClick={handleAddRecipient} className="recipient__add-btn">
+          Add Recipient
+        </button>
       </section>
+      <section
+        className={`recipient-main ${
+          filterRecipientGifts?.length > 0 && "recipient_opened"
+        }`}
+      >
+        {/* <section className="recipient-main"> */}
+        <h2 className="recipient__title">{recipientInfo?.name} Gifts</h2>
+        <ul className="recipient__gift-list">{filterRecipientGifts}</ul>
+        <button onClick={handleGoBack} className="recipient__add-btn ">
+          Back
+        </button>
+      </section>
+      {/* <section className="items">
+        <ul className="items__list">{filterResult}</ul>
+      </section> */}
     </main>
   );
 }
