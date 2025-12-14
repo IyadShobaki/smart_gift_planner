@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
@@ -12,6 +12,7 @@ import { catregoryOptions } from "../../utils/constants";
 import { groupOptions } from "../../utils/constants";
 import { signup, signin, getCurrentUser } from "../../utils/auth";
 import Footer from "../Footer/Footer";
+import SubNav from "../SubNav/SubNav";
 
 function App() {
   const [activeModal, setActiveModal] = useState(null);
@@ -25,6 +26,9 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const token = localStorage.getItem("jwt");
+  const [shouldResetLoginForm, setShouldResetLoginForm] = useState(false);
+  const [shouldResetSignUpForm, setShouldResetSignUpForm] = useState(false);
+  const [currentTab, setCurrentTab] = useState("home");
 
   let selectedCategory = "";
   let selectedGroup = "";
@@ -48,17 +52,13 @@ function App() {
   const [formName, setFormName] = useState("");
   const [formSelectedGroup, setFormSelectedGroup] = useState("");
 
-  const [recipientsArray, setRecipientsArray] = useState();
+  const [recipientsArray, setRecipientsArray] = useState([]);
   const loaclRecipientsString = localStorage.getItem("recipients");
   let loaclRecipients = JSON.parse(loaclRecipientsString);
 
   useEffect(() => {
-    if (loaclRecipients === null) {
-      localStorage.setItem("recipients", JSON.stringify([]));
-      setRecipientsArray([]);
-    } else {
-      setRecipientsArray(loaclRecipients);
-    }
+    const stored = JSON.parse(localStorage.getItem("recipients")) || [];
+    setRecipientsArray(stored);
   }, []);
 
   function handleItemClick(item) {
@@ -179,6 +179,9 @@ function App() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setUser(null);
+    setShouldResetLoginForm(true);
+    setShouldResetSignUpForm(true);
+    setActiveModal("");
   };
 
   useEffect(() => {
@@ -234,18 +237,28 @@ function App() {
           onViewCart={onViewCart}
           openSignInModal={openSignInModal}
           openSignUpModal={openSignUpModal}
+          isLoggedIn={isLoggedIn}
+          user={user}
+          onLogout={handleLogout}
         />
-
-        <Main
-          recipients={recipientsArray}
-          handleItemClick={handleItemClick}
-          lowPriceRange={lowPriceRange}
-          highPriceRange={highPriceRange}
-          seacrhTextValue={seacrhText}
-          handleAddToCart={handleAddToCart}
-          handleAddRecipient={handleAddRecipient}
-          handleDeleteRecipient={handleDeleteRecipient}
-        />
+        <SubNav active={currentTab} onChange={setCurrentTab} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                recipients={recipientsArray}
+                handleItemClick={handleItemClick}
+                lowPriceRange={lowPriceRange}
+                highPriceRange={highPriceRange}
+                seacrhTextValue={seacrhText}
+                handleAddToCart={handleAddToCart}
+                handleAddRecipient={handleAddRecipient}
+                handleDeleteRecipient={handleDeleteRecipient}
+              />
+            }
+          />
+        </Routes>
       </div>
       <FormModal
         title="Who will you buy a gift for?"
@@ -326,6 +339,7 @@ function App() {
           <span className="form__span-range"> ${formPriceRange}</span>
         </label>
       </FormModal>
+
       <ItemModal
         activeModal={activeModal === "preview"}
         item={selectedItem}
@@ -341,14 +355,18 @@ function App() {
         onClose={closeActiveModal}
         onSignIn={handleSignIn}
         onSignUpModal={switchToSignUp}
+        shouldResetLoginForm={shouldResetLoginForm}
+        onResetComplete={() => setShouldResetLoginForm(false)}
       />
       <SignUpModal
         isOpen={activeModal === "sign up"}
         onClose={closeActiveModal}
         onSignInModal={switchToSignIn}
         onSignUp={handleSignUp}
+        shouldResetSignUpForm={shouldResetSignUpForm}
+        onResetComplete={() => setShouldResetSignUpForm(false)}
       />
-      <Footer/>
+      <Footer />
     </div>
   );
 }
