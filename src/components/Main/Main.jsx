@@ -29,8 +29,6 @@ function Main({
   }, [recipients]);
 
   useEffect(() => {
-    debugger;
-    console.log(recipientInfo);
     if (
       recipientInfo?.name?.length > 0 &&
       //seacrhTextValue.length > 0 &&
@@ -44,7 +42,6 @@ function Main({
   }
   // if (seacrhTextValue)
   function handleRecipientClick(recipient) {
-    debugger;
     setRecipientInfo(recipient);
     //   const filterRecipientG = testItems
     //     .filter((item) => {
@@ -79,7 +76,6 @@ function Main({
 
     if (seacrhTextValue.length > 0) {
       filteredItems = filteredItems.filter((item) => {
-        console.log(item);
         return (
           item.name.toLowerCase().includes(seacrhTextValue) ||
           item.description.toLowerCase().includes(seacrhTextValue)

@@ -93,7 +93,6 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    debugger;
     const id =
       recipientsArray === undefined || recipientsArray.length === 0
         ? 0
