@@ -167,6 +167,10 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px #003532;
   margin-right: 10px;
+  cursor: pointer;
+}
+.form__input_type_checkbox:checked {
+  background-color: #000;
 }
 .form__input-range {
   width: 100%;

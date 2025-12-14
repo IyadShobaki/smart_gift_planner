@@ -35,11 +35,6 @@ function App() {
     }
   }, []);
 
-  //let slectedCategories = [];
-  //let selectedGroup = "";
-  //let nameInput = "";
-  //let priceRange = "5";
-
   function handleItemClick(item) {
     setActiveModal("preview");
     setSelectedItem(item);
@@ -50,7 +45,6 @@ function App() {
       setFormSelectedGroup("");
       setFormName("");
       setFormPriceRange("50");
-      //priceRange = "5";
     }
     setActiveModal("");
   }
@@ -83,9 +77,6 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    debugger;
-
     const id =
       recipientsArray === undefined || recipientsArray.length === 0
         ? 0
@@ -129,19 +120,16 @@ function App() {
   let isChecked;
   const [countCategories, setCountCategories] = useState(0);
   function handleOnCheckBoxChange(e, category) {
-    debugger;
-    if (countCategories < 3) {
-      if (e.target.checked) {
-        setCountCategories(countCategories + 1);
-        setFormSlectedCategories([...formSlectedCategories, category]);
-      } else {
-        const index = formSlectedCategories.indexOf(category);
-        formSlectedCategories.splice(index, 1);
-        setCountCategories(countCategories - 1);
-      }
+    if (countCategories < 3 && e.target.checked) {
+      setCountCategories(countCategories + 1);
+      setFormSlectedCategories([...formSlectedCategories, category]);
+    } else if (countCategories === 3 && !e.target.checked) {
+      const index = formSlectedCategories.indexOf(category);
+      formSlectedCategories.splice(index, 1);
+      setCountCategories(countCategories - 1);
     } else {
       e.target.checked = false;
-      alert("Please choose up to 3 categories.");
+      alert("Please choose up to 3 categories.", "Smart Gift Planner");
     }
   }
   return (

@@ -33,7 +33,6 @@ function Main({
   }
 
   function handleRecipientClick(recipient) {
-    debugger;
     setRecipientInfo(recipient);
     const filterRecipientG = testItems
       .filter((item) => {
