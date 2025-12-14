@@ -11,6 +11,7 @@ import SignUpModal from "../SignUpModal/SignUpModal";
 import { catregoryOptions } from "../../utils/constants";
 import { groupOptions } from "../../utils/constants";
 import { signup, signin, getCurrentUser } from "../../utils/auth";
+import Footer from "../Footer/Footer";
 
 function App() {
   const [activeModal, setActiveModal] = useState(null);
@@ -157,8 +158,7 @@ function App() {
 
     if (!token) return;
 
-    auth
-      .getCurrentUser(token)
+    getCurrentUser(token)
       .then((userData) => {
         setUser(userData);
         setIsLoggedIn(true);
@@ -275,6 +275,7 @@ function App() {
         onSignInModal={switchToSignIn}
         onSignUp={handleSignUp}
       />
+      <Footer/>
     </div>
   );
 }
