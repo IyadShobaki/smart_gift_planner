@@ -5,7 +5,4 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/smart_gift_planner",
-  server: {
-    port: 3000,
-  },
 });
