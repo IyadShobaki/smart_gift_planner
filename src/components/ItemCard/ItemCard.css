@@ -1,6 +1,6 @@
 .item {
   width: 323px;
-  height: 500px;
+  height: auto;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,6 +8,12 @@
   border-radius: 18px;
   border: 1px solid #0000004d;
 }
+
+.item__image-container {
+  position: relative;
+  display: inline-block;
+}
+
 .item__image {
   width: 100%;
   object-fit: cover;
@@ -15,16 +21,14 @@
   display: block;
   cursor: pointer;
 }
+
 .item__name {
-  position: absolute;
-  top: 15px;
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: unset;
   line-height: 20px;
-  font-weight: 700;
-  color: #00000099;
-  background-color: #ffffff;
-  padding: 2px 12px;
+  color: #000;
+  background-color: transparent;
   border-radius: 4px;
 }
 
@@ -33,26 +37,37 @@
   justify-content: space-between;
   flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 12px;
+  margin-bottom: 12px;
+  width: 90%;
 }
 .item__price {
   margin: 0;
-  font-weight: 500;
   font-size: 20px;
   line-height: 1.2;
   padding: 0;
+  font-weight: 600;
 }
 .item__description {
   margin: 0;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.2;
   padding: 0;
 }
 
 .item__like-btn {
-  background-image: url(../../assets/images/heart.png);
+  background: url(../../assets/images/heart.svg) no-repeat transparent;
   height: 25px;
   width: 25px;
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  border: none;
+}
+
+.item__like-btn:hover {
+  cursor: pointer;
+  background: url(../../assets/images/red-heart.svg) no-repeat;
 }

@@ -5,16 +5,15 @@ import logo from "../../assets/images/logoFooter.png";
 import avatarPlaceholder from "../../assets/images/avatarPH.jpg";
 
 function Header({
+  isLoggedIn,
   handleLowPriceRange,
   handleHighPriceRange,
   lowPriceRange,
   highPriceRange,
-  cartItems,
   openSignInModal,
   openSignUpModal,
   onLogout,
   handleSearch,
-  isLoggedIn,
   user,
 }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
