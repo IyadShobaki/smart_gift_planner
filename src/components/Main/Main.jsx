@@ -168,7 +168,7 @@ function Main({
           No one to buy gifts for yet!
         </p>
         <ul className="recipients__list">{friends}</ul>
-        <h2 className="recipients__title">Co-wrokers</h2>
+        <h2 className="recipients__title">Co-workers</h2>
         <p
           className={`recipients__exist ${
             (coworkers?.length === 0 || coworkers === undefined) &&
