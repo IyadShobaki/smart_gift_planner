@@ -20,7 +20,7 @@ function BudgetSlider({ value = 1500, onChange }) {
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         min="0"
-        max="1000"
+        max="5000"
       />
     </div>
   );

@@ -49,3 +49,18 @@ export const deleteGift = (token, index) => {
     headers: { Authorization: `Bearer ${token}` },
   }).then(checkResponse);
 };
+export async function uploadAvatar(token, file) {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  const res = await fetch(`${baseUrl}/profile/avatar`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) throw new Error("Avatar upload failed");
+  return res.json();
+}
