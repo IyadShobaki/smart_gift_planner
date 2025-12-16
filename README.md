@@ -1,3 +1,5 @@
+![](giftlogo.png)
+
 # GiftIQ
 
 A web-based gift planning application that helps users **organize, plan, and track thoughtful gifts** for recipients, occasions, and special events.
