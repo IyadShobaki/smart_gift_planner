@@ -9,6 +9,7 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import UploadAvatarModal from "../UploadAvatarModal/UploadAvatarModal";
 import { useLocation } from "react-router-dom";
 import { baseUrl } from "../../utils/constants";
+import ProductSearchModal from "../ProductSearch/ProductSearchModal/ProductSearchModal";
 
 import {
   getProfile,
@@ -45,6 +46,15 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
     open: false,
     index: null,
   });
+  const [showGiftFinder, setShowGiftFinder] = useState(false);
+
+  function openGiftFinder() {
+    setShowGiftFinder(true);
+  }
+
+  function closeGiftFinder() {
+    setShowGiftFinder(false);
+  }
 
   useEffect(() => {
     async function load() {
@@ -290,6 +300,7 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
           currentAvatar={profile?.avatar ? `${baseUrl}${profile.avatar}` : ""}
         />
       )}
+      <ProductSearchModal open={showGiftFinder} onClose={closeGiftFinder} />
     </div>
   );
 }
