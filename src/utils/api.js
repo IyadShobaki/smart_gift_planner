@@ -90,3 +90,19 @@ export async function updateProfile(token, fields) {
   }).then(checkResponse);
   return res;
 }
+export async function uploadRecipientAvatar(token, recipientId, file) {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  const res = await fetch(`${baseUrl}/recipients/${recipientId}/avatar`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) throw new Error("Failed to upload recipient avatar");
+
+  return res.json();
+}

@@ -27,7 +27,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1400px; 
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -36,4 +36,22 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.main,
+.page,
+.page__content {
+  position: relative;
+  overflow: visible !important;
+}
+
+.modal-product-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999999 !important;
+}
+
+.product-modal {
+  position: relative;
+  z-index: 9999999999 !important;
 }

@@ -253,4 +253,5 @@
 .modal_opened {
   opacity: 1;
   pointer-events: all;
+  z-index: 77;
 }

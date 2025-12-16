@@ -19,7 +19,7 @@ export function getFilteredProducts({
   product_type,
   min_price,
   max_price,
-  limit = 10,
+  limit = 200,
   offset = 0,
 }) {
   const params = new URLSearchParams();

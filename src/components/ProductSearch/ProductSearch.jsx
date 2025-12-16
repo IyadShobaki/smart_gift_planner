@@ -1,4 +1,4 @@
-
+// src/components/ProductSearch/ProductSearch.jsx
 import { useState } from "react";
 import { getFilteredProducts } from "../../utils/productApi";
 import "./ProductSearch.css";
@@ -9,6 +9,7 @@ export default function ProductSearch() {
   const [maxPrice, setMaxPrice] = useState("20");
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
   const [error, setError] = useState("");
 
   async function handleSearch(e) {
@@ -19,15 +20,15 @@ export default function ProductSearch() {
 
     try {
       const data = await getFilteredProducts({
-        product_type: productType,
+        product_type:  apiCategoryMap[productType] || productType,
         min_price: minPrice,
         max_price: maxPrice,
         limit: 5,
         offset: 0,
       });
 
-      // Expecting an array of products – adjust if API shape is different
-      setProducts(data);
+      setTotal(data.total || 0);
+      setProducts(data.results || []);
     } catch (err) {
       console.error("Product search error:", err);
       setError("Could not load products. Please try again.");
@@ -52,7 +53,6 @@ export default function ProductSearch() {
             <option value="Toys">Toys</option>
             <option value="Beauty">Beauty</option>
             <option value="Home">Home</option>
-            {/* add more if your API supports them */}
           </select>
         </div>
 
@@ -77,51 +77,58 @@ export default function ProductSearch() {
           </div>
         </div>
 
-        <button
-          className="product-search__btn"
-          type="submit"
-          disabled={loading}
-        >
+        <button className="product-search__btn" type="submit" disabled={loading}>
           {loading ? "Searching..." : "Search Products"}
         </button>
       </form>
 
       {error && <p className="product-search__error">{error}</p>}
 
+      {total > 0 && (
+        <p className="product-search__count">
+          Showing {products.length} of {total} results
+        </p>
+      )}
+
       {products.length > 0 && (
         <div className="product-search__results">
           {products.map((item) => (
-            <div
-              key={item.id || item._id || item.product_id}
-              className="product-card"
-            >
-              <h4 className="product-card__name">{item.name || item.title}</h4>
+            <div key={item.asin} className="product-card">
+              <h4 className="product-card__name">{item.title}</h4>
 
-              {item.image && (
+              {item.imgUrl && (
                 <img
-                  src={item.image}
-                  alt={item.name || item.title}
+                  src={item.imgUrl}
+                  alt={item.title}
                   className="product-card__image"
                 />
               )}
 
               <p className="product-card__price">
-                {item.price ? `$${item.price}` : "Price not available"}
+                ${item.price?.toFixed ? item.price.toFixed(2) : item.price}
               </p>
 
-              {item.url && (
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="product-card__link"
-                >
-                  View Product
-                </a>
-              )}
+              <p className="product-card__meta">
+                ⭐ {item.stars} · {item.category_name}
+              </p>
+
+              <a
+                href={item.productURL}
+                target="_blank"
+                rel="noreferrer"
+                className="product-card__link"
+              >
+                View on Amazon
+              </a>
             </div>
           ))}
         </div>
+      )}
+
+      {!loading && products.length === 0 && total === 0 && !error && (
+        <p className="product-search__empty">
+          Use the filters above and click <strong>Search Products</strong> to see suggestions.
+        </p>
       )}
     </div>
   );

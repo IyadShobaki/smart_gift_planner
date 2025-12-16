@@ -1,7 +1,13 @@
 import "./RecipientCard.css";
 import avatar from "../../assets/images/avatarPH.jpg";
 
-function RecipientCard({ recipient, onRecipientClick, onRecipientDelete, onFindGift }) {
+function RecipientCard({
+  recipient,
+  onRecipientClick,
+  onRecipientDelete,
+  onFindGift,
+  onUploadRecipientAvatar,
+}) {
   const handleRecipientClick = () => {
     onRecipientClick(recipient);
   };
@@ -14,7 +20,11 @@ function RecipientCard({ recipient, onRecipientClick, onRecipientDelete, onFindG
       <div>
         <button className="recipient__edit-btn"></button>
       </div>
-      <img src={avatar} alt="" className="recipient__img" />
+      <img
+        src={recipient.avatar ? `${baseUrl}${recipient.avatar}` : avatar}
+        alt={recipient.name}
+        className="recipient__img"
+      />
       <h2 className="recipient__name">{recipient.name}</h2>
       <div className="recipient__gift">
         <button className="recipient__gift-icon"></button>
@@ -26,6 +36,13 @@ function RecipientCard({ recipient, onRecipientClick, onRecipientDelete, onFindG
         <button onClick={onFindGift} className="recipient__btn">
           Find Gifts
         </button>
+        <button
+          className="recipient__btn"
+          onClick={() => onUploadRecipientAvatar(recipient)}
+        >
+          Upload Avatar
+        </button>
+
         <button onClick={handleDeleteRecipient} className="recipient__btn">
           Delete
         </button>
