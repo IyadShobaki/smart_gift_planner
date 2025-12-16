@@ -1,0 +1,6 @@
+uvicorn
+fastapi
+pandas
+python-multipart
+pydantic
+datasets
