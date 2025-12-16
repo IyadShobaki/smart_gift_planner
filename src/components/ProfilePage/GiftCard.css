@@ -1,14 +1,12 @@
 .giftcard {
   width: 330px;
-  background: #c7c9ce; /* Figma grey */
+  background: #c7c9ce; 
   border-radius: 22px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
-
-/* ---------------- HEADER ---------------- */
 
 .giftcard-top {
   display: flex;
@@ -39,15 +37,11 @@
   align-items: center;
 }
 
-/* ---------------- BODY ---------------- */
-
 .giftcard-body {
   display: flex;
   margin-top: 12px;
   align-items: flex-start;
 }
-
-/* IMAGE */
 
 .giftcard-image {
   width: 80px;
@@ -57,8 +51,6 @@
   object-fit: cover;
   margin-right: 12px;
 }
-
-/* TEXT + CONTROLS */
 
 .giftcard-info {
   display: flex;
@@ -84,52 +76,43 @@
   font-size: 0.9rem;
   background: white;
 }
-/* Base dropdown container */
+
 .styled-dropdown {
   width: 160px;
-  background: #c7c9ce; /* gray bg like your figma */
+  background: #c7c9ce; 
   padding: 10px 16px;
   border-radius: 30px;
   border: none;
   font-size: 16px;
   font-weight: 600;
-  appearance: none;
   cursor: pointer;
-  position: relative;
   outline: none;
-}
-
-/* Custom arrow */
-.styled-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 14px center;
 }
 
-/* OPEN State (flip arrow when active) */
 .styled-dropdown:focus {
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 14l5-5 5 5z'/></svg>");
 }
 
-/* ----- Status Colors (matches your screenshot!) ----- */
-.styled-dropdown.Bought {
-  color: #2e6f2e; /* green */
+
+.styled-dropdown.Considering {
+  color: green;
   font-weight: 700;
 }
 
-.styled-dropdown.Not\ Bought {
-  color: #b44b33; /* red */
+.styled-dropdown.Purchased {
+  color: #b44b33;
   font-weight: 700;
 }
 
-/* Dropdown list styling */
+
+
 .styled-dropdown option {
   font-size: 16px;
-  padding: 10px;
   font-weight: 600;
-}
-
-/* Remove default select border focus */
-.styled-dropdown:focus-visible {
-  outline: none;
 }

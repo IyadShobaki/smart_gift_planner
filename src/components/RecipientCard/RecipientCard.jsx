@@ -17,7 +17,7 @@ function RecipientCard({ recipient, onRecipientClick, onRecipientDelete }) {
       <img src={avatar} alt="" className="recipient__img" />
       <h2 className="recipient__name">{recipient.name}</h2>
       <div className="recipient__gift">
-        <button class="recipient__gift-icon"></button>
+        <button className="recipient__gift-icon"></button>
         <p className="recipient__gifts-number">
           Gifts/{recipient.products.length}
         </p>
