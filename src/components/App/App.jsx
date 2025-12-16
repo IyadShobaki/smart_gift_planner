@@ -422,6 +422,7 @@ function App() {
           shouldResetSignUpForm={shouldResetSignUpForm}
           onResetComplete={() => setShouldResetSignUpForm(false)}
         />
+        
         <Footer />
       </div>
     </div>

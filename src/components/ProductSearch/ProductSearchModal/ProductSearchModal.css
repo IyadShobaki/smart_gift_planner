@@ -1,0 +1,150 @@
+.modal-product-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999999;
+  pointer-events: auto;
+}
+
+.product-modal {
+  position: relative;
+  z-index: 1000000;
+
+  width: 90%;
+  max-width: 900px;
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.product-modal {
+  border: 6px solid red !important;
+}
+
+.close-btn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal-products-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: #f7f7f7;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.buy-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #0f2a2a;
+  color: white;
+}
+/* ---------------- FILTERS CONTAINER ---------------- */
+.product-filters {
+  background: #f5f7fa;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 10px 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid #d9dfe7;
+}
+
+/* Each filter field block */
+.product-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-filter-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Inputs + select styling */
+.product-filter-field input,
+.product-filter-field select {
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.product-filter-field input:focus,
+.product-filter-field select:focus {
+  border-color: #0f2a2a;
+}
+
+/* Row for Min/Max price */
+.product-filter-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* Search button */
+.search-btn {
+  align-self: flex-start;
+  background: #0f2a2a;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-btn:hover {
+  background: #134040;
+}
+
+.search-btn:disabled {
+  background: #7a8a8a;
+  cursor: not-allowed;
+}
+
+/* Total results text */
+.product-total {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #444;
+}
