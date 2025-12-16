@@ -1,7 +1,7 @@
 from datasets import load_dataset
 
 def stream_products():
-        """
+    """
     Stream products dataset from Hugging Face.
     Returns a generator of product dicts.
     """
