@@ -1,11 +1,17 @@
 import "./UserInfoCard.css";
+import { baseUrl } from "../../../utils/constants";
 
-function UserInfoCard({ user }) {
+function UserInfoCard({ user, onEditProfile, onChangeAvatar }) {
   if (!user) return null;
 
+  const avatarSrc = user.avatar ? `${baseUrl}${user.avatar}` : null;
   return (
     <div className="user-card">
-      <img src={user.avatar} alt="avatar" className="user-card__avatar" />
+      {avatarSrc ? (
+        <img src={avatarSrc} alt={user.name} className="user-avatar" />
+      ) : (
+        <div className="user-avatar-placeholder"></div>
+      )}
 
       <div className="user-card__info">
         <h2 className="user-card__name">{user.name}</h2>
@@ -13,9 +19,12 @@ function UserInfoCard({ user }) {
         <span className="user-card__tag">{user.relationship}</span>
 
         <div className="user-card__icons">
-          <button title="Edit">✏️</button>
-          <button title="Upload">📤</button>
-          <button title="Print">🖨️</button>
+          <button title="Edit" onClick={onEditProfile}>
+            ✏️
+          </button>
+          <button title="Upload" onClick={onChangeAvatar}>
+            📤
+          </button>
           <button title="Delete">🗑️</button>
         </div>
       </div>

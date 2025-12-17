@@ -54,6 +54,13 @@
 .recipient__title {
   margin: 25px 0 20px;
 }
+.recipients,
+.recipient-main {
+  overflow: visible;
+  position: relative;
+  z-index: auto;
+}
+
 .recipient__gift-list {
   list-style-type: none;
   padding: 0;

@@ -5,7 +5,11 @@ import GiftGrid from "./GiftGrid";
 import AddGiftForm from "./AddGiftForm/AddGiftForm";
 import ConfirmModal from "../ConfirmationModal/ConfirmationModal";
 import UnsavedChangesModal from "../UnsavedChangesModal/UnsavedChangesModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import UploadAvatarModal from "../UploadAvatarModal/UploadAvatarModal";
 import { useLocation } from "react-router-dom";
+import { baseUrl } from "../../utils/constants";
+import ProductSearchModal from "../ProductSearch/ProductSearchModal/ProductSearchModal";
 
 import {
   getProfile,
@@ -13,6 +17,8 @@ import {
   addGift,
   updateGiftStatus,
   deleteGift,
+  uploadAvatar,
+  updateProfile,
 } from "../../utils/api";
 
 import { useEffect, useState } from "react";
@@ -27,7 +33,8 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
   const [loading, setLoading] = useState(true);
   const [showUnsavedModal, setShowUnsavedModal] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [newGift, setNewGift] = useState({
     name: "",
     price: "",
@@ -35,13 +42,20 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
     description: "",
   });
 
-  // modal state for deleting a gift
   const [deleteModal, setDeleteModal] = useState({
     open: false,
     index: null,
   });
+  const [showGiftFinder, setShowGiftFinder] = useState(false);
 
-  // Load profile
+  function openGiftFinder() {
+    setShowGiftFinder(true);
+  }
+
+  function closeGiftFinder() {
+    setShowGiftFinder(false);
+  }
+
   useEffect(() => {
     async function load() {
       try {
@@ -69,7 +83,6 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
     }
   }, []);
 
-  // Update budget
   async function handleBudgetChange(value) {
     setHasUnsavedChanges(true);
     try {
@@ -82,7 +95,6 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
     }
   }
 
-  // Add new gift
   async function handleAddGift(form) {
     setHasUnsavedChanges(true);
     try {
@@ -92,14 +104,12 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
 
       setProfile((prev) => ({
         ...prev,
-        gifts: updated, // backend returns full updated array
+        gifts: updated,
       }));
     } catch (err) {
       console.error("Add gift error:", err);
     }
   }
-
-  // Update gift status
   async function handleStatusChange(index, status) {
     setHasUnsavedChanges(true);
     try {
@@ -117,12 +127,9 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
     }
   }
 
-  // STEP 1: open delete confirmation modal
   function askDeleteGift(index) {
     setDeleteModal({ open: true, index });
   }
-
-  // STEP 2: actually delete once user confirms
   async function confirmDeleteGift() {
     try {
       const authToken = token || localStorage.getItem("token");
@@ -137,7 +144,6 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
     }
   }
 
-  // Cancel delete
   function cancelDeleteGift() {
     setDeleteModal({ open: false, index: null });
   }
@@ -177,12 +183,50 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
         return;
       }
 
-      // Example: only save budget
       const updated = await updateBudget(authToken, profile.budget);
       setProfile(updated);
       setHasUnsavedChanges(false);
     } catch (err) {
       console.error("Save error:", err);
+    }
+  }
+  function handleEditProfile() {
+    setShowEditModal(true);
+  }
+
+  function closeEditModal() {
+    setShowEditModal(false);
+  }
+  async function saveProfileAvatar(file) {
+    try {
+      const authToken = token || localStorage.getItem("token");
+      const updated = await uploadAvatar(authToken, file);
+
+      setProfile((prev) => ({
+        ...prev,
+        avatar: updated.avatar,
+      }));
+    } catch (err) {
+      console.error("Upload error:", err);
+    }
+  }
+  function openAvatarUploader() {
+    setShowAvatarModal(true);
+  }
+  async function handleSaveProfile(updatedFields) {
+    try {
+      const authToken = token || localStorage.getItem("token");
+
+      const updated = await updateProfile(authToken, updatedFields);
+
+      setProfile((prev) => ({
+        ...prev,
+        ...updated,
+      }));
+
+      setShowEditModal(false);
+    } catch (err) {
+      console.error("Profile update error:", err);
     }
   }
 
@@ -194,7 +238,11 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
 
       {!isSavedView && (
         <div className="profile-header">
-          <UserInfoCard user={profile} />
+          <UserInfoCard
+            user={profile}
+            onEditProfile={handleEditProfile}
+            onChangeAvatar={openAvatarUploader}
+          />
           <BudgetSlider value={profile.budget} onChange={handleBudgetChange} />
           <div className="profile-right">
             <div className="profile-actions">
@@ -233,6 +281,26 @@ export default function ProfilePage({ currentTab, token, setCurrentTab }) {
         onConfirm={confirmLeavePage}
         onCancel={cancelLeavePage}
       />
+      {showEditModal && (
+        <EditProfileModal
+          open={showEditModal}
+          onClose={closeEditModal}
+          onSave={handleSaveProfile}
+          currentName={profile.name}
+          currentAvatar={profile.avatar}
+          currentRelationship={profile.relationship}
+        />
+      )}
+      {showAvatarModal && (
+        <UploadAvatarModal
+          open={showAvatarModal}
+          onClose={() => setShowAvatarModal(false)}
+          onUploaded={saveProfileAvatar}
+          token={token || localStorage.getItem("token")}
+          currentAvatar={profile?.avatar ? `${baseUrl}${profile.avatar}` : ""}
+        />
+      )}
+      <ProductSearchModal open={showGiftFinder} onClose={closeGiftFinder} />
     </div>
   );
 }

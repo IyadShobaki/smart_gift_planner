@@ -187,6 +187,7 @@ function App() {
         setUser(userData);
         setIsLoggedIn(true);
         navigate("/profile");
+        setActiveModal("");
       })
       .catch((error) => {
         console.error("Login error", error.message);
@@ -207,6 +208,8 @@ function App() {
     setShouldResetLoginForm(true);
     setShouldResetSignUpForm(true);
     setActiveModal("");
+    setCurrentTab("home");
+    navigate("/smart_gift_planner");
   };
 
   useEffect(() => {
@@ -419,6 +422,7 @@ function App() {
           shouldResetSignUpForm={shouldResetSignUpForm}
           onResetComplete={() => setShouldResetSignUpForm(false)}
         />
+        
         <Footer />
       </div>
     </div>

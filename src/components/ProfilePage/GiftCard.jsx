@@ -1,9 +1,15 @@
 import "./GiftCard.css";
 
 export default function GiftCard({ gift, index, onStatusChange, onDelete }) {
+  const statusClass =
+    gift.status === "Purchased"
+      ? "Purchased"
+      : gift.status === "Considering"
+      ? "Considering"
+      : "";
+
   return (
     <div className="giftcard">
-      {/* HEADER ROW */}
       <div className="giftcard-top">
         <h4 className="giftcard-title">{gift.name}</h4>
 
@@ -13,7 +19,6 @@ export default function GiftCard({ gift, index, onStatusChange, onDelete }) {
       </div>
 
       <div className="giftcard-body">
-        {/* IMAGE */}
         <img
           src={gift.link}
           alt={gift.name}
@@ -21,18 +26,17 @@ export default function GiftCard({ gift, index, onStatusChange, onDelete }) {
           onError={(e) => (e.target.style.display = "none")}
         />
 
-        {/* PRICE + STATUS */}
         <div className="giftcard-info">
           <p className="giftcard-price">${gift.price}</p>
 
           <label className="giftcard-status-label">Gift Status</label>
 
           <select
-            className={`gift-status styled-dropdown ${gift.status}`}
+            className={`styled-dropdown ${statusClass}`}
             value={gift.status || "No Status"}
             onChange={(e) => onStatusChange(index, e.target.value)}
           >
-            <option>Gift Status</option>
+            <option>No Status</option>
             <option>Considering</option>
             <option>Purchased</option>
           </select>
